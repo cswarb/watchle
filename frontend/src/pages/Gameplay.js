@@ -15,14 +15,15 @@ const GamePlay = ({ watch, onGameEnd }) => {
     const correctAnswer = `${watch.watchMake} ${watch.watchModel}`.toLowerCase();
 
     if (guessText.toLowerCase() === correctAnswer) {
-      setIsCorrect(true);
-      setScore(10 - (newGuesses.length - 1) * 2);
-        onGameEnd(true, score, name, newGuesses.length); // Pass the name to the onGameEnd callback
+        setIsCorrect(true);
+        const newScore = 10 - (newGuesses.length - 1) * 2;
+        setScore(newScore);
+        onGameEnd(true, newScore, name, newGuesses.length); // Pass the name to the onGameEnd callback
     } else if (newGuesses.length >= 5) {
-      setScore(0);
+        setScore(0);
         onGameEnd(false, score, name, newGuesses.length); // Pass the name to the onGameEnd callback
     } else {
-      setImageIndex((prev) => Math.min(prev + 1, watch.imageSet.length - 1));
+        setImageIndex((prev) => Math.min(prev + 1, watch.imageSet.length - 1));
     }
 
     setGuesses(newGuesses);
@@ -47,6 +48,7 @@ const GamePlay = ({ watch, onGameEnd }) => {
           <input
             type="text"
             placeholder="Make"
+            autoFocus="true"
             value={guess.make}
             onChange={(e) => setGuess({ ...guess, make: e.target.value })}
             required
