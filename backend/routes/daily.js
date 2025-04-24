@@ -50,7 +50,7 @@ router.get('/result/:resultId', async (req, res) => {
   res.json(play);
 });
 
-router.get('/leaderboard', async (req, res) => {
+router.get('/stats/leaderboard', async (req, res) => {
   const today = new Date().toISOString().split('T')[0];
   const topPlayers = await Play.find({ date: today })
     .sort({ score: -1, guesses: 1 })

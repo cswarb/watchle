@@ -1,0 +1,63 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.leaderboard-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.leaderboard-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease;
+}
+
+.leaderboard-item:hover {
+    background-color: #f1f1f1;
+}
+
+.leaderboard-rank {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.leaderboard-username {
+    flex: 1;
+    font-weight: bold;
+}
+
+.leaderboard-details {
+    flex: 2;
+    text-align: left;
+    color: #555;
+}
+
+.leaderboard-score {
+    flex: 1;
+    text-align: right;
+    font-weight: bold;
+    color: #333;
+}
+
+.leaderboard-guesses {
+    flex: 1;
+    text-align: right;
+    color: #888;
+    font-size: 0.9em;
+}

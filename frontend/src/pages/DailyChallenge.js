@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getUserId } from '../utils/getUserId';
 import './styles.css';
+import WatchLoadingAnimation from './WatchLoadingAnimation';
 
 const zoomLevels = [
   'zoom0.jpg',
@@ -12,6 +13,7 @@ const zoomLevels = [
 
 const DailyChallenge = () => {
   const [status, setStatus] = useState(null);
+  const [name, setName] = useState(''); // New state for name
   const [guess, setGuess] = useState({ make: '', model: '' });
   const [guesses, setGuesses] = useState([]);
   const [submitted, setSubmitted] = useState(false);
@@ -40,7 +42,7 @@ const DailyChallenge = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           userId,
-          username: 'Anonymous',
+          username: name || 'Anonymous', // Pass the name field to username
           make: guess.make,
           model: guess.model,
           guesses: newGuesses.length,
@@ -60,7 +62,12 @@ const DailyChallenge = () => {
     setGuess({ make: '', model: '' });
   };
 
-  if (!status) return <p className="loading">Loading...</p>;
+  if (!status) return (
+    <div className="loading-container">
+      <WatchLoadingAnimation />
+    </div>
+  );
+
   if (status.played && !submitted) {
     return (
       <div className="container">
@@ -85,6 +92,13 @@ const DailyChallenge = () => {
       {!submitted ? (
         <>
           <form onSubmit={handleSubmit} className="guess-form">
+            <input
+              type="text"
+              placeholder="Your Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
             <input
               type="text"
               placeholder="Make"

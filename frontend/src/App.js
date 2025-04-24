@@ -10,10 +10,14 @@ function App() {
     <Router>
       <nav className="navbar">
         <div className="nav-container">
-          <span className="logo">Watchle</span>
+          <span className="logo">
+            <Link to="/">
+              Watchle
+            </Link>
+            </span>
           <div className="nav-links">
             <Link to="/">Daily</Link>
-            <Link to="/freeplay">Free Play</Link>
+            {/* <Link to="/freeplay">Free Play</Link> */}
             <Link to="/leaderboard">Leaderboard</Link>
           </div>
         </div>
