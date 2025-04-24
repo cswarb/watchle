@@ -1,0 +1,79 @@
+import React, { useState } from 'react';
+
+const GamePlay = ({ watch, onGameEnd }) => {
+  const [guesses, setGuesses] = useState([]);
+  const [imageIndex, setImageIndex] = useState(0);
+  const [guess, setGuess] = useState({ make: '', model: '' });
+  const [name, setName] = useState(''); // New state for the name field
+  const [score, setScore] = useState(0);
+  const [isCorrect, setIsCorrect] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const guessText = `${guess.make.trim()} ${guess.model.trim()}`;
+    const newGuesses = [...guesses, guessText];
+    const correctAnswer = `${watch.watchMake} ${watch.watchModel}`.toLowerCase();
+
+    if (guessText.toLowerCase() === correctAnswer) {
+      setIsCorrect(true);
+      setScore(10 - (newGuesses.length - 1) * 2);
+        onGameEnd(true, score, name, newGuesses.length); // Pass the name to the onGameEnd callback
+    } else if (newGuesses.length >= 5) {
+      setScore(0);
+        onGameEnd(false, score, name, newGuesses.length); // Pass the name to the onGameEnd callback
+    } else {
+      setImageIndex((prev) => Math.min(prev + 1, watch.imageSet.length - 1));
+    }
+
+    setGuesses(newGuesses);
+    setGuess({ make: '', model: '' });
+  };
+
+  return (
+    <div>
+      <h1 className="title">Guess the watch</h1>
+      <div className="image-wrapper">
+        <img className="zoom-image" src={watch.imageSet[imageIndex]} alt={`Zoom level ${imageIndex}`} />
+      </div>
+      {!isCorrect && guesses.length < 5 ? (
+        <form onSubmit={handleSubmit} className="guess-form">
+          <input
+            type="text"
+            placeholder="Your Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Make"
+            value={guess.make}
+            onChange={(e) => setGuess({ ...guess, make: e.target.value })}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Model"
+            value={guess.model}
+            onChange={(e) => setGuess({ ...guess, model: e.target.value })}
+            required
+          />
+          <button type="submit">Submit Guess</button>
+        </form>
+      ) : (
+        <div className="game-over">
+          <h2>{isCorrect ? 'Correct!' : 'Game Over'}</h2>
+          <p>Score: {score}</p>
+          <p>Player: {name}</p>
+        </div>
+      )}
+      <ul className="guess-history">
+        {guesses.map((g, i) => (
+          <li key={i}>{g}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default GamePlay;

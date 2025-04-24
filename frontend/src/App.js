@@ -4,6 +4,7 @@ import DailyChallenge from './pages/DailyChallenge';
 import FreePlay from './pages/FreePlay';
 import ResultPage from './pages/ResultPage';
 import Leaderboard from './pages/Leaderboard';
+import './pages/styles.css';
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
             </span>
           <div className="nav-links">
             <Link to="/">Daily</Link>
-            {/* <Link to="/freeplay">Free Play</Link> */}
+            <Link to="/freeplay">Free Play</Link>
             <Link to="/leaderboard">Leaderboard</Link>
           </div>
         </div>

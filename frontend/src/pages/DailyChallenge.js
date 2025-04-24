@@ -1,27 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import GamePlay from './Gameplay';
 import { getUserId } from '../utils/getUserId';
-import './styles.css';
 import WatchLoadingAnimation from './WatchLoadingAnimation';
 
-const zoomLevels = [
-  'zoom0.jpg',
-  'zoom1.jpg',
-  'zoom2.jpg',
-  'zoom3.jpg',
-  'zoom4.jpg',
-];
-
 const DailyChallenge = () => {
-  const [status, setStatus] = useState(null);
-  const [name, setName] = useState(''); // New state for name
-  const [guess, setGuess] = useState({ make: '', model: '' });
-  const [guesses, setGuesses] = useState([]);
-  const [images, setImages] = useState([]);
-  const [submitted, setSubmitted] = useState(false);
-  const [answer, setAnswer] = useState({ make: '', model: '' });
-  const [imageIndex, setImageIndex] = useState(0);
-  const [score, setScore] = useState(0);
-
+  const [dailyWatch, setDailyWatch] = useState(null);
+  const [status, setStatus] = useState(null); // Track if the user has already played
+  const [submitted, setSubmitted] = useState(false); // Track if the game is submitted
+  const navigate = useNavigate();
   const userId = getUserId();
 
   useEffect(() => {
@@ -31,115 +18,66 @@ const DailyChallenge = () => {
   }, [userId]);
 
   useEffect(() => {
-    const fetchChallenge = async () => {
+    const fetchDailyChallenge = async () => {
       const res = await fetch('http://localhost:5000/api/daily');
       const data = await res.json();
-      setImages(data.imageSet); // Set the images for the day
-      setAnswer({ make: data.watchMake, model: data.watchModel }); // Set the correct answer
+      setDailyWatch(data);
     };
 
-    fetchChallenge();
+    fetchDailyChallenge();
   }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const guessText = `${guess.make.trim()} ${guess.model.trim()}`;
-    const newGuesses = [...guesses, guessText];
+  const handleGameEnd = (isCorrect, score, name, guesses) => {
+    setSubmitted(true);
 
-    const isCorrect = guessText.toLowerCase() === "rolex submariner";
-    const finalScore = isCorrect ? (10 - (newGuesses.length - 1) * 2) : 0;
-
-    if (newGuesses.length >= 5 || isCorrect) {
+    const saveResult = async () => {
       const res = await fetch('http://localhost:5000/api/daily', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({
-          userId,
-          username: name || 'Anonymous', // Pass the name field to username
-          make: guess.make,
-          model: guess.model,
-          guesses: newGuesses.length,
-          score: finalScore,
+          userId: userId,
+          username: name || 'Anonymous',
+          make: dailyWatch.watchMake,
+          model: dailyWatch.watchModel,
+          guesses: guesses,
+          score: score,
         }),
       });
 
-      const result = await res.json();
-      setSubmitted(true);
-      setScore(finalScore);
-      setStatus({ ...status, played: true, resultId: result.resultId });
-    } else {
-      setImageIndex((prev) => Math.min(prev + 1, zoomLevels.length - 1));
-    }
+      if (res.ok) {
+        const resultData = await res.json();
+        navigate(`/result/${resultData.resultId}`);
+      } else {
+        alert('Error saving result');
+      }
+    };
 
-    setGuesses(newGuesses);
-    setGuess({ make: '', model: '' });
+    saveResult();
   };
 
-  if (!status) return (
+  if (!dailyWatch) return (
     <div className="loading-container">
       <WatchLoadingAnimation />
     </div>
   );
 
-  if (status.played && !submitted) {
+  if (status?.played && !submitted) {
     return (
       <div className="container">
         <h2>You've already played today!</h2>
         <p>Score: {status.score}</p>
         <a href={`/result/${status.resultId}`} className="link">View your result</a>
+        
+        <h3>Want to play again?: <a href={`/freeplay`} className="link">Freeplay</a></h3>
       </div>
     );
   }
 
   return (
     <div className="container">
-      <h1 className="title">Guess the Watch</h1>
-      <div className="image-wrapper">
-        <img
-          src={`${images[imageIndex]}`}
-          alt="Zoomed Watch"
-          className="zoom-image"
-        />
-      </div>
-
-      {!submitted ? (
-        <>
-          <form onSubmit={handleSubmit} className="guess-form">
-            <input
-              type="text"
-              placeholder="Your Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-            <input
-              type="text"
-              placeholder="Make"
-              value={guess.make}
-              onChange={(e) => setGuess({ ...guess, make: e.target.value })}
-              required
-            />
-            <input
-              type="text"
-              placeholder="Model"
-              value={guess.model}
-              onChange={(e) => setGuess({ ...guess, model: e.target.value })}
-              required
-            />
-            <button type="submit" disabled={guesses.length >= 5}>Guess</button>
-          </form>
-          <p className="guess-count">Guesses left: {5 - guesses.length}</p>
-          <ul className="guess-history">
-            {guesses.map((g, i) => <li key={i}>{g}</li>)}
-          </ul>
-        </>
-      ) : (
-        <div className="game-over">
-          <h2>Game Over</h2>
-          <p>Score: {score}</p>
-          <a href={`/result/${status.resultId}`} className="link">Share your result</a>
-        </div>
-      )}
+      <GamePlay watch={dailyWatch} onGameEnd={handleGameEnd} />
     </div>
   );
 };
