@@ -42,7 +42,7 @@ const FreePlay = () => {
           <ul className="watch-list">
             {watches.map((watch, index) => (
               <li key={index} className="watch-item" onClick={() => handleSelectWatch(watch)}>
-                <img className="watch-image" src={watch.imageSet[0]} alt={`${watch.watchMake} ${watch.watchModel}`} />
+                <img className="watch-image" src={'/images/' + watch.date + '/' + watch.imageSet[0]} alt={`${watch.watchMake} ${watch.watchModel}`} />
                 <div className="watch-details">
                   <p className="watch-make-model">Watch #{index + 1} ({watch.date})</p>
                 </div>
