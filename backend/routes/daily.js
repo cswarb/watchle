@@ -1,7 +1,19 @@
 const express = require('express');
 const router = express.Router();
 const Play = require('../models/Play');
+const Daily = require('../models/Daily');
 const { v4: uuidv4 } = require('uuid');
+
+router.get('/', async (req, res) => {
+  const today = new Date().toISOString().slice(0, 10); // Get today's date in "YYYY-MM-DD" format
+  const challenge = await Daily.findOne({ date: today });
+
+  if (!challenge) {
+    return res.status(404).json({ message: 'No challenge for today.' });
+  }
+
+  res.json(challenge);
+});
 
 router.get('/:userId', async (req, res) => {
   const userId = req.params.userId;

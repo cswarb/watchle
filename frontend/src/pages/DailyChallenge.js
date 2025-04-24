@@ -16,7 +16,9 @@ const DailyChallenge = () => {
   const [name, setName] = useState(''); // New state for name
   const [guess, setGuess] = useState({ make: '', model: '' });
   const [guesses, setGuesses] = useState([]);
+  const [images, setImages] = useState([]);
   const [submitted, setSubmitted] = useState(false);
+  const [answer, setAnswer] = useState({ make: '', model: '' });
   const [imageIndex, setImageIndex] = useState(0);
   const [score, setScore] = useState(0);
 
@@ -27,6 +29,17 @@ const DailyChallenge = () => {
       .then(res => res.json())
       .then(setStatus);
   }, [userId]);
+
+  useEffect(() => {
+    const fetchChallenge = async () => {
+      const res = await fetch('http://localhost:5000/api/daily');
+      const data = await res.json();
+      setImages(data.imageSet); // Set the images for the day
+      setAnswer({ make: data.watchMake, model: data.watchModel }); // Set the correct answer
+    };
+
+    fetchChallenge();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -83,7 +96,7 @@ const DailyChallenge = () => {
       <h1 className="title">Guess the Watch</h1>
       <div className="image-wrapper">
         <img
-          src={`/images/${zoomLevels[imageIndex]}`}
+          src={`${images[imageIndex]}`}
           alt="Zoomed Watch"
           className="zoom-image"
         />
