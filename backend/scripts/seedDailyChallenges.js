@@ -9,11 +9,11 @@ const seedChallenges = async () => {
     {
       date: '2025-04-24',
       imageSet: [
-        '/images/watch1-zoom0.jpg',
-        '/images/watch1-zoom1.jpg',
-        '/images/watch1-zoom2.jpg',
-        '/images/watch1-zoom3.jpg',
-        '/images/watch1-zoom4.jpg'
+        'zoom0.jpg',
+        'zoom1.jpg',
+        'zoom2.jpg',
+        'zoom3.jpg',
+        'zoom4.jpg'
       ],
       watchMake: 'Rolex',
       watchModel: 'Submariner'
@@ -21,11 +21,11 @@ const seedChallenges = async () => {
     {
       date: '2025-04-25',
       imageSet: [
-        '/images/watch2-zoom0.jpg',
-        '/images/watch2-zoom1.jpg',
-        '/images/watch2-zoom2.jpg',
-        '/images/watch2-zoom3.jpg',
-        '/images/watch2-zoom4.jpg'
+        'zoom0.jpg',
+        'zoom1.jpg',
+        'zoom2.jpg',
+        'zoom3.jpg',
+        'zoom4.jpg'
       ],
       watchMake: 'Omega',
       watchModel: 'Seamaster'

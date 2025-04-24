@@ -40,7 +40,7 @@ const GamePlay = ({ watch, onGameEnd }) => {
     <div>
       <h1 className="title">Guess the watch</h1>
       <div className="image-wrapper">
-        <img className="zoom-image" src={watch.imageSet[imageIndex]} alt={`Zoom level ${imageIndex}`} />
+              <img className="zoom-image" src={'/images/' + watch.date + '/' + watch.imageSet[imageIndex]} alt={`Zoom level ${imageIndex}`} />
       </div>
       {!isCorrect && guesses.filter((g) => g !== '').length < MAX_GUESSES ? (
         <form onSubmit={handleSubmit} className="guess-form">
