@@ -1,29 +1,35 @@
 import React, { useState } from 'react';
 
 const GamePlay = ({ watch, onGameEnd }) => {
-  const [guesses, setGuesses] = useState([]);
+  const [guesses, setGuesses] = useState(Array(5).fill('')); // Initialize with 5 empty placeholders
   const [imageIndex, setImageIndex] = useState(0);
   const [guess, setGuess] = useState({ make: '', model: '' });
   const [name, setName] = useState(''); // New state for the name field
   const [score, setScore] = useState(0);
   const [isCorrect, setIsCorrect] = useState(false);
+  const MAX_GUESSES = 5;
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const guessText = `${guess.make.trim()} ${guess.model.trim()}`;
-    const newGuesses = [...guesses, guessText];
+    const newGuesses = [...guesses];
+    const currentGuessIndex = newGuesses.findIndex((g) => g === ''); // Find the first empty placeholder
     const correctAnswer = `${watch.watchMake} ${watch.watchModel}`.toLowerCase();
 
+    if (currentGuessIndex !== -1) {
+      newGuesses[currentGuessIndex] = guessText; // Replace the placeholder with the player's guess
+    }
+
     if (guessText.toLowerCase() === correctAnswer) {
-        setIsCorrect(true);
-        const newScore = 10 - (newGuesses.length - 1) * 2;
-        setScore(newScore);
-        onGameEnd(true, newScore, name, newGuesses.length); // Pass the name to the onGameEnd callback
-    } else if (newGuesses.length >= 5) {
-        setScore(0);
-        onGameEnd(false, score, name, newGuesses.length); // Pass the name to the onGameEnd callback
+      setIsCorrect(true);
+      const newScore = 10 - currentGuessIndex * 2;
+      setScore(newScore);
+      onGameEnd(true, newScore, name, currentGuessIndex + 1); // Pass the name to the onGameEnd callback
+    } else if (currentGuessIndex + 1 >= MAX_GUESSES) {
+      setScore(0);
+      onGameEnd(false, score, name, MAX_GUESSES); // Pass the name to the onGameEnd callback
     } else {
-        setImageIndex((prev) => Math.min(prev + 1, watch.imageSet.length - 1));
+      setImageIndex((prev) => Math.min(prev + 1, watch.imageSet.length - 1));
     }
 
     setGuesses(newGuesses);
@@ -36,7 +42,7 @@ const GamePlay = ({ watch, onGameEnd }) => {
       <div className="image-wrapper">
         <img className="zoom-image" src={watch.imageSet[imageIndex]} alt={`Zoom level ${imageIndex}`} />
       </div>
-      {!isCorrect && guesses.length < 5 ? (
+      {!isCorrect && guesses.filter((g) => g !== '').length < MAX_GUESSES ? (
         <form onSubmit={handleSubmit} className="guess-form">
           <input
             type="text"
@@ -71,7 +77,9 @@ const GamePlay = ({ watch, onGameEnd }) => {
       )}
       <ul className="guess-history">
         {guesses.map((g, i) => (
-          <li key={i}>{g}</li>
+          <li key={i}>
+            Guess {i + 1}: {g || <span className="placeholder">- -</span>}
+          </li>
         ))}
       </ul>
     </div>
