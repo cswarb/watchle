@@ -1,0 +1,129 @@
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: #f9f9f9;
+  color: #222;
+}
+
+.container {
+  max-width: 500px;
+  margin: 3rem auto;
+  padding: 1rem;
+  text-align: center;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.image-wrapper {
+  margin: 1rem auto;
+  transition: transform 0.3s ease;
+}
+
+.zoom-image {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.guess-form {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.guess-form input {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  transition: border-color 0.2s ease;
+}
+
+.guess-form input:focus {
+  border-color: #0077ff;
+  outline: none;
+}
+
+.guess-form button {
+  padding: 0.75rem;
+  font-weight: bold;
+  font-size: 1rem;
+  background-color: #0077ff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.guess-form button:hover {
+  background-color: #005fcc;
+}
+
+.guess-count {
+  margin-top: 0.5rem;
+  color: #555;
+}
+
+.guess-history {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+  font-family: monospace;
+}
+
+.link {
+  display: inline-block;
+  margin-top: 1rem;
+  color: #0077ff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.navbar {
+    background: white;
+    border-bottom: 1px solid #eee;
+    padding: 0.75rem 1.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: #0077ff;
+}
+
+.nav-links a {
+    margin-left: 1rem;
+    text-decoration: none;
+    font-weight: 500;
+    color: #333;
+    transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: #0077ff;
+}
