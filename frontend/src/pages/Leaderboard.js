@@ -15,19 +15,24 @@ const Leaderboard = () => {
   return (
     <div className="container">
       <h1>Daily Leaderboard</h1>
-      <ul className="leaderboard-list">
-        {entries?.map((entry, index) => (
-          <li key={index} className="leaderboard-item">
-            <span className="leaderboard-rank">{index + 1}.</span>
-            <span className="leaderboard-username">{entry.username || 'Anonymous'}</span>
-            <span className="leaderboard-details">
-              {entry.make} {entry.model}
-            </span>
-            <span className="leaderboard-score">{entry.score} pts</span>
-            <span className="leaderboard-guesses">({entry.guesses} guesses)</span>
-          </li>
-        ))}
-      </ul>
+
+      {entries && entries.length < 1 ? (
+        <p>No results</p>
+      ) : (
+        <ul className="leaderboard-list">
+          {entries?.map((entry, index) => (
+            <li key={index} className="leaderboard-item">
+              <span className="leaderboard-rank">{index + 1}.</span>
+              <span className="leaderboard-username">{entry.username || 'Anonymous'}</span>
+              <span className="leaderboard-details">
+                {entry.make} {entry.model}
+              </span>
+              <span className="leaderboard-score">{entry.score} pts</span>
+              <span className="leaderboard-guesses">({entry.guesses} guesses)</span>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
