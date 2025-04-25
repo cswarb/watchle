@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { API_BASE_URL } from '../Config';
 
 const ResultPage = () => {
   const { resultId } = useParams();
   const [result, setResult] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/daily/result/${resultId}`)
+    fetch(`${API_BASE_URL}/api/daily/result/${resultId}`)
       .then(res => res.json())
       .then(setResult);
   }, [resultId]);

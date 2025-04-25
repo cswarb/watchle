@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import './Leaderboard.css'; // Import the CSS file for styling
+import './Leaderboard.css';
+import { API_BASE_URL } from '../Config';
 
 const Leaderboard = () => {
   const [entries, setEntries] = useState([]);
@@ -7,7 +8,7 @@ const Leaderboard = () => {
   console.log('entries', entries);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/daily/stats/leaderboard')
+    fetch(`${API_BASE_URL}/api/daily/stats/leaderboard`)
       .then(res => res.json())
       .then(setEntries);
   }, []);

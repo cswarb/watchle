@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import GamePlay from './Gameplay';
+import { API_BASE_URL } from '../Config';
 
 const FreePlay = () => {
   const [watches, setWatches] = useState([]);
@@ -8,7 +9,7 @@ const FreePlay = () => {
 
   useEffect(() => {
     const fetchWatches = async () => {
-      const res = await fetch('http://localhost:5000/api/freeplay/watches');
+      const res = await fetch(`${API_BASE_URL}/api/freeplay/watches`);
       const data = await res.json();
       setWatches(data);
     };

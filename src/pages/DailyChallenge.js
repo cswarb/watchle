@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import GamePlay from './Gameplay';
 import { getUserId } from '../utils/getUserId';
 import WatchLoadingAnimation from './WatchLoadingAnimation';
+import { API_BASE_URL } from '../Config';
 
 const DailyChallenge = () => {
   const [dailyWatch, setDailyWatch] = useState(null);
@@ -12,14 +13,14 @@ const DailyChallenge = () => {
   const userId = getUserId();
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/daily/${userId}`)
+    fetch(`${API_BASE_URL}/api/daily/${userId}`)
       .then(res => res.json())
       .then(setStatus);
   }, [userId]);
 
   useEffect(() => {
     const fetchDailyChallenge = async () => {
-      const res = await fetch('http://localhost:5000/api/daily');
+      const res = await fetch(`${API_BASE_URL}/api/daily`);
       const data = await res.json();
       setDailyWatch(data);
     };
@@ -31,7 +32,7 @@ const DailyChallenge = () => {
     setSubmitted(true);
 
     const saveResult = async () => {
-      const res = await fetch('http://localhost:5000/api/daily', {
+      const res = await fetch(`${API_BASE_URL}/api/daily`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
