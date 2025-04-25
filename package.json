@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "main": "server.js",
     "scripts": {
-        "start": "npx concurrently \"node server.js\" \"PORT=8080 npx react-scripts start\"",
+        "start": "npx concurrently \"node server.js\" \"PORT=10000 npx react-scripts start\"",
         "dev": "npx nodemon server.js",
         "build": "npx react-scripts build",
         "seed": "node backend/scripts/seedDailyChallenges.js"
