@@ -5,6 +5,7 @@
     "scripts": {
         "start": "npx concurrently \"node server.js\" \"PORT=10000 npx react-scripts start\"",
         "dev": "npx nodemon server.js",
+        "backend": "node server.js",
         "build": "npx react-scripts build",
         "seed": "node backend/scripts/seedDailyChallenges.js"
     },
