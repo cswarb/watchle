@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 const Daily = require('../models/Daily');
 
-mongoose.connect('mongodb://0.0.0.0:27017/watchle', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://127.0.0.1:27017/watchle', { useNewUrlParser: true, useUnifiedTopology: true });
 
 const seedChallenges = async () => {
   const challenges = [
