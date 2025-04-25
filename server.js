@@ -14,6 +14,10 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error(err));
 
+
+app.use('/healthcheck', (req, res) => {
+  res.status(200).json({ status: 'OK', message: 'Server is running' });
+});
 app.use('/api/daily', require('./routes/daily'));
 app.use('/api/freeplay', require('./routes/freeplay'));
 
