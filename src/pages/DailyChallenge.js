@@ -76,11 +76,20 @@ const DailyChallenge = () => {
     );
   }
 
-  return (
-    <div className="container">
-      <GamePlay watch={dailyWatch} onGameEnd={handleGameEnd} />
-    </div>
-  );
+  if (dailyWatch && dailyWatch.message) {
+    return (
+      <div className="container">
+        <h2>{dailyWatch.message}</h2>
+        <p>Try again tomorrow, or use free play</p>
+      </div>
+    );
+  } else {
+    return (
+      <div className="container">
+        <GamePlay watch={dailyWatch} onGameEnd={handleGameEnd} />
+      </div>
+    );
+  }
 };
 
 export default DailyChallenge;

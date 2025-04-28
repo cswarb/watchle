@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
 
 const GamePlay = ({ watch, onGameEnd }) => {
+  if (!watch) {
+    return (
+      <div className="error-message">
+        <h2>Error getting watch</h2>
+      </div>
+    );
+  }
+
   const [guesses, setGuesses] = useState(Array(5).fill('')); // Initialize with 5 empty placeholders
   const [imageIndex, setImageIndex] = useState(0);
   const [guess, setGuess] = useState({ make: '', model: '' });
@@ -40,7 +48,7 @@ const GamePlay = ({ watch, onGameEnd }) => {
     <div>
       <h1 className="title">Guess the watch</h1>
       <div className="image-wrapper">
-              <img className="zoom-image" src={'/images/' + watch.date + '/' + watch.imageSet[imageIndex]} alt={`Zoom level ${imageIndex}`} />
+        <img className="zoom-image" src={'/images/' + watch.date + '/' + watch.imageSet[imageIndex]} alt={`Zoom level ${imageIndex}`} />
       </div>
       {!isCorrect && guesses.filter((g) => g !== '').length < MAX_GUESSES ? (
         <form onSubmit={handleSubmit} className="guess-form">
