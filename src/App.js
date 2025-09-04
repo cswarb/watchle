@@ -13,7 +13,7 @@ function App() {
         <div className="nav-container">
           <span className="logo">
             <Link to="/">
-              Watchle
+              GuessTheWatch
             </Link>
             </span>
           <div className="nav-links">
