@@ -7,7 +7,7 @@
         "dev": "npx nodemon server.js",
         "backend": "node server.js",
         "build": "npx react-scripts build",
-        "start:with-migrate": "npm run migrate && npm run start",
+        "backend:with-migrate": "npm run migrate && npm run backend",
         "migrate": "npx migrate-mongo up",
         "seed": "node backend/scripts/seedDailyChallenges.js"
     },
