@@ -35,6 +35,7 @@ const FreePlay = () => {
             <div className={`game-result ${gameResult.isCorrect ? 'success' : 'failure'}`}>
               <h2>{gameResult.isCorrect ? 'Congratulations!' : 'Game Over'}</h2>
               <p>Your Score: {gameResult.score}</p>
+              <img className="watch-image" src={'/images/' + selectedWatch.date + '/' + selectedWatch.imageSet[selectedWatch.imageSet[selectedWatch.imageSet.length - 1]]} alt={`${selectedWatch.watchMake} ${selectedWatch.watchModel}`} />
             </div>
           )}
 

@@ -13,7 +13,8 @@ module.exports = {
                     '2a.jpg',
                     '3a.jpg',
                     '4a.jpg',
-                    '5a.jpg'
+                    '5a.jpg',
+                    'a.jpg'
                 ],
                 watchMake: 'Audemars Piguet',
                 watchModel: 'Grand Complication'
@@ -25,7 +26,8 @@ module.exports = {
                     '2b.jpg',
                     '3b.jpg',
                     '4b.jpg',
-                    '5b.jpg'
+                    '5b.jpg',
+                    'b.jpg'
                 ],
                 watchMake: 'Tudor',
                 watchModel: 'Black Bay Chrono'
@@ -37,7 +39,8 @@ module.exports = {
                     '2c.jpg',
                     '3c.jpg',
                     '4c.jpg',
-                    '5c.jpg'
+                    '5c.jpg',
+                    'c.jpg'
                 ],
                 watchMake: 'Christopher Ward',
                 watchModel: 'Sealander GMT'
@@ -49,7 +52,8 @@ module.exports = {
                     '2d.jpg',
                     '3d.jpg',
                     '4d.jpg',
-                    '5d.jpg'
+                    '5d.jpg',
+                    'd.jpg'
                 ],
                 watchMake: 'Tag Heuer',
                 watchModel: 'Aquaracer'
@@ -61,7 +65,8 @@ module.exports = {
                     '2e.jpg',
                     '3e.jpg',
                     '4e.jpg',
-                    '5e.jpg'
+                    '5e.jpg',
+                    'e.jpg'
                 ],
                 watchMake: 'Vacheron Constantin',
                 watchModel: 'Perpetual Calendar'
@@ -73,7 +78,8 @@ module.exports = {
                     '2f.jpg',
                     '3f.jpg',
                     '4f.jpg',
-                    '5f.jpg'
+                    '5f.jpg',
+                    'f.jpg'
                 ],
                 watchMake: 'Cartier',
                 watchModel: 'Crash'
