@@ -22,8 +22,8 @@ const FreePlay = () => {
     setGameResult(null); // Reset the game result when a new watch is selected
   };
 
-  const handleGameEnd = (isCorrect, score) => {
-    setGameResult({ isCorrect, score }); // Set the game result
+  const handleGameEnd = (isCorrect, score, name, index, watch) => {
+    setGameResult({ isCorrect, score, date: watch.date, watch: watch }); // Set the game result
     setSelectedWatch(null); // Reset to allow replay
   };
 
@@ -35,7 +35,7 @@ const FreePlay = () => {
             <div className={`game-result ${gameResult.isCorrect ? 'success' : 'failure'}`}>
               <h2>{gameResult.isCorrect ? 'Congratulations!' : 'Game Over'}</h2>
               <p>Your Score: {gameResult.score}</p>
-              <img className="watch-image" src={'/images/' + selectedWatch.date + '/' + selectedWatch.imageSet[selectedWatch.imageSet[selectedWatch.imageSet.length - 1]]} alt={`${selectedWatch.watchMake} ${selectedWatch.watchModel}`} />
+              <img className="watch-image" src={'/images/' + gameResult.date + '/' + gameResult.watch.imageSet[gameResult.watch.imageSet[gameResult.watch.imageSet.length - 1]]} alt={`${gameResult.watch.watchMake} ${gameResult.watch.watchModel}`} />
             </div>
           )}
 

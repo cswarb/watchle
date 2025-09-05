@@ -32,10 +32,10 @@ const GamePlay = ({ watch, onGameEnd }) => {
       setIsCorrect(true);
       const newScore = 10 - currentGuessIndex * 2;
       setScore(newScore);
-      onGameEnd(true, newScore, name, currentGuessIndex + 1); // Pass the name to the onGameEnd callback
+      onGameEnd(true, newScore, name, currentGuessIndex + 1, watch); // Pass the name to the onGameEnd callback
     } else if (currentGuessIndex + 1 >= MAX_GUESSES) {
       setScore(0);
-      onGameEnd(false, score, name, MAX_GUESSES); // Pass the name to the onGameEnd callback
+      onGameEnd(false, score, name, MAX_GUESSES, watch); // Pass the name to the onGameEnd callback
     } else {
       setImageIndex((prev) => Math.min(prev + 1, watch.imageSet.length - 1));
     }
