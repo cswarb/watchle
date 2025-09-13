@@ -31,11 +31,6 @@ router.post('/', async (req, res) => {
   const { userId, username, make, model, guesses, score } = req.body;
   const today = new Date().toISOString().split('T')[0];
 
-  const existing = await Play.findOne({ userId, date: today });
-  if (existing) {
-    return res.status(400).json({ message: 'Already played today' });
-  }
-
   const resultId = uuidv4();
 
   const play = new Play({

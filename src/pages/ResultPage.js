@@ -16,10 +16,14 @@ const ResultPage = () => {
 
   return (
     <div className="container">
-      <h1><strong>In today's round </strong> {result.username || 'Anonymous'} guessed:</h1>
+      <h1><strong>In this round </strong> {result.username || 'Anonymous'} guessed:</h1>
       <p><strong>Watch:</strong> {result.make} {result.model}</p>
       <p><strong>Score:</strong> {result.score}</p>
       <p><strong>Guesses it took:</strong> {result.guesses}</p>
+
+      <a href="/" className="link">Play again</a>
+      <br />
+      <a href="/leaderboard" className="link">View Leaderboard</a>
     </div>
   );
 };

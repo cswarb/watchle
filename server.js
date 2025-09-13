@@ -18,6 +18,7 @@ app.use('/healthcheck', (req, res) => {
 });
 app.use('/api/daily', require('./routes/daily'));
 app.use('/api/freeplay', require('./routes/freeplay'));
+app.use('/api/user', require('./routes/user'));
 
 const PORT = process.env.PORT || 8081;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

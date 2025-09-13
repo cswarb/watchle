@@ -1,12 +1,24 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import GamePlay from './Gameplay';
 import { API_BASE_URL } from '../Config';
+import { getUserId } from '../utils/getUserId';
 
 const FreePlay = () => {
   const [watches, setWatches] = useState([]);
   const [selectedWatch, setSelectedWatch] = useState(null);
+  const [status, setStatus] = useState(null); // Track if the user has already played
   const [gameResult, setGameResult] = useState(null); // Track the game result
   const [isMagnified, setIsMagnified] = useState(false); // State to track magnification
+  const [submitted, setSubmitted] = useState(false)
+  const userId = getUserId();
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    fetch(`${API_BASE_URL}/api/daily/${userId}`)
+      .then(res => res.json())
+      .then(setStatus);
+  }, [userId]);
 
   useEffect(() => {
     const fetchWatches = async () => {
@@ -24,6 +36,33 @@ const FreePlay = () => {
   };
 
   const handleGameEnd = (isCorrect, score, name, index, watch) => {
+    setSubmitted(true);
+
+    const saveResult = async () => {
+      const res = await fetch(`${API_BASE_URL}/api/daily`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: userId,
+          username: name || 'Anonymous',
+          make: watch.watchMake,
+          model: watch.watchModel,
+          guesses: index,
+          score: score,
+        }),
+      });
+
+      if (res.ok) {
+        const resultData = await res.json();
+        navigate(`/result/${resultData.resultId}`);
+      } else {
+        alert('Error saving result');
+      }
+    };
+
+    saveResult();
     setGameResult({ isCorrect, score, date: watch.date, watch: watch }); // Set the game result
     setSelectedWatch(null); // Reset to allow replay
   };
@@ -41,6 +80,7 @@ const FreePlay = () => {
               className={`game-result ${gameResult.isCorrect ? 'success' : 'failure'}`}
             >
               <h2>{gameResult.isCorrect ? 'Congratulations!' : 'Game Over'}</h2>
+              <p>The watch was a {gameResult.watch.watchMake} {gameResult.watch.watchModel}</p>
               <p>Your Score: {gameResult.score}</p>
               <img
                 className={`watch-image ${isMagnified ? 'watch-image--expanded' : ''}`}
@@ -75,6 +115,13 @@ const FreePlay = () => {
           </ul>
         </>
       ) : (
+        // {(status?.played && !submitted) && (
+        //   <div className="container">
+        //     <h2>You've already played today!</h2>
+        //     <p>Score: {status.score}</p>
+        //     <a href={`/result/${status.resultId}`} className="link">View your result</a>
+        //   </div>
+        // )}
         <GamePlay watch={selectedWatch} onGameEnd={handleGameEnd} />
       )}
     </div>

@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import './Leaderboard.css';
 import { API_BASE_URL } from '../Config';
+import { getUserId } from '../utils/getUserId';
 
 const Leaderboard = () => {
   const [entries, setEntries] = useState([]);
-
-  console.log('entries', entries);
+  const [currentUser, setCurrentUser] = useState(null);
+  const userId = getUserId();
 
   useEffect(() => {
     fetch(`${API_BASE_URL}/api/daily/stats/leaderboard`)
       .then(res => res.json())
       .then(setEntries);
+
+    // Fetch current user data
+    fetch(`${API_BASE_URL}/api/user/${userId}`)
+      .then(res => res.json())
+      .then(setCurrentUser);
   }, []);
 
   return (
@@ -22,7 +28,10 @@ const Leaderboard = () => {
       ) : (
         <ul className="leaderboard-list">
           {entries?.map((entry, index) => (
-            <li key={index} className="leaderboard-item">
+            <li
+              key={index}
+              className={`leaderboard-item ${currentUser?.username === entry.username ? 'highlight' : ''}`}
+            >
               <span className="leaderboard-rank">{index + 1}.</span>
               <span className="leaderboard-username">{entry.username || 'Anonymous'}</span>
               <span className="leaderboard-details">

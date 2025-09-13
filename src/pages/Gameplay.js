@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { getUserId, setUserId } from '../utils/getUserId';
+import { API_BASE_URL } from '../Config';
 
 const GamePlay = ({ watch, onGameEnd }) => {
   if (!watch) {
@@ -12,11 +14,51 @@ const GamePlay = ({ watch, onGameEnd }) => {
   const [guesses, setGuesses] = useState(Array(5).fill('')); // Initialize with 5 empty placeholders
   const [imageIndex, setImageIndex] = useState(0);
   const [guess, setGuess] = useState({ make: '', model: '' });
-  const [name, setName] = useState(''); // New state for the name field
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [score, setScore] = useState(0);
   const [isCorrect, setIsCorrect] = useState(false);
+  const [name, setName] = useState(null);
   const [isMagnified, setIsMagnified] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+  const userId = getUserId();
   const MAX_GUESSES = 5;
+
+  useEffect(() => {
+    if (!userId) {
+      fetch(`${API_BASE_URL}/api/user/create`, {
+        method: 'POST',
+      })
+        .then((res) => res.json())
+        .then((newUser) => {
+          setUserId(newUser.user.id);
+          setIsLoggedIn(true);
+          setCurrentUser(newUser.user);
+          setName(newUser.user.name);
+        });
+    } else {
+      fetch(`${API_BASE_URL}/api/user/id/${userId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.user) {
+          setIsLoggedIn(true);
+          setCurrentUser(data.user);
+          setUserId(data.user.id);
+          setName(data.user.name);
+        } else {
+          fetch(`${API_BASE_URL}/api/user/create`, {
+            method: 'POST',
+          })
+          .then((res) => res.json())
+          .then((newUser) => {
+            setUserId(newUser.user.id);
+            setIsLoggedIn(true);
+            setCurrentUser(newUser.user);
+            setName(newUser.user.name);
+          });
+        }
+      })
+    }
+  }, [userId]);
 
   const magnify = () => {
     setIsMagnified((prev) => !prev);
@@ -51,7 +93,7 @@ const GamePlay = ({ watch, onGameEnd }) => {
 
   return (
     <div>
-      <h1 className="title">Guess the watch</h1>
+      <h1 className="title">Guess the watch - {name}</h1>
       <div className="image-wrapper">
         <img 
           onClick={magnify}
@@ -62,10 +104,11 @@ const GamePlay = ({ watch, onGameEnd }) => {
         <form onSubmit={handleSubmit} className="guess-form">
           <input
             type="text"
-            placeholder="Your Name"
-            value={name}
+            placeholder={isLoggedIn ? name : 'Enter your name'}
+            value={name || ''}
             onChange={(e) => setName(e.target.value)}
             required
+            disabled={isLoggedIn}
           />
           <input
             type="text"

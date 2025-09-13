@@ -13,18 +13,17 @@ function App() {
         <div className="nav-container">
           <span className="logo">
             <Link to="/">
-              GuessTheWatch
+              Guess The Watch
             </Link>
             </span>
           <div className="nav-links">
-            <Link to="/">Daily</Link>
-            <Link to="/freeplay">Free Play</Link>
+            <Link to="/">Free Play</Link>
             <Link to="/leaderboard">Leaderboard</Link>
           </div>
         </div>
       </nav>
       <Routes>
-        <Route path="/" element={<DailyChallenge />} />
+        <Route path="/" element={<FreePlay />} />
         <Route path="/freeplay" element={<FreePlay />} />
         <Route path="/result/:resultId" element={<ResultPage />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
