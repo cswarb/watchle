@@ -6,6 +6,7 @@ const FreePlay = () => {
   const [watches, setWatches] = useState([]);
   const [selectedWatch, setSelectedWatch] = useState(null);
   const [gameResult, setGameResult] = useState(null); // Track the game result
+  const [isMagnified, setIsMagnified] = useState(false); // State to track magnification
 
   useEffect(() => {
     const fetchWatches = async () => {
@@ -27,15 +28,26 @@ const FreePlay = () => {
     setSelectedWatch(null); // Reset to allow replay
   };
 
+  const magnify = () => {
+    setIsMagnified((prev) => !prev);
+  };
+
   return (
     <div className="container">
       {!selectedWatch ? (
         <>
           {gameResult && (
-            <div className={`game-result ${gameResult.isCorrect ? 'success' : 'failure'}`}>
+            <div
+              className={`game-result ${gameResult.isCorrect ? 'success' : 'failure'}`}
+            >
               <h2>{gameResult.isCorrect ? 'Congratulations!' : 'Game Over'}</h2>
               <p>Your Score: {gameResult.score}</p>
-              <img className="watch-image" src={'/images/' + gameResult.date + '/' + gameResult.watch.imageSet[gameResult.watch.imageSet.length - 1]} alt={`${gameResult.watch.watchMake} ${gameResult.watch.watchModel}`} />
+              <img
+                className={`watch-image ${isMagnified ? 'watch-image--expanded' : ''}`}
+                onClick={magnify}
+                src={'/images/' + gameResult.date + '/' + gameResult.watch.imageSet[gameResult.watch.imageSet.length - 1]}
+                alt={`${gameResult.watch.watchMake} ${gameResult.watch.watchModel}`}
+              />
             </div>
           )}
 
@@ -43,10 +55,20 @@ const FreePlay = () => {
           <h3>Select a Watch</h3>
           <ul className="watch-list">
             {watches.map((watch, index) => (
-              <li key={index} className="watch-item" onClick={() => handleSelectWatch(watch)}>
-                <img className="watch-image" src={'/images/' + watch.date + '/' + watch.imageSet[0]} alt={`${watch.watchMake} ${watch.watchModel}`} />
+              <li
+                key={index}
+                className="watch-item"
+                onClick={() => handleSelectWatch(watch)}
+              >
+                <img
+                  className="watch-image watch-image--thumbnail"
+                  src={'/images/' + watch.date + '/' + watch.imageSet[0]}
+                  alt={`${watch.watchMake} ${watch.watchModel}`}
+                />
                 <div className="watch-details">
-                  <p className="watch-make-model">Watch #{index + 1} ({watch.date})</p>
+                  <p className="watch-make-model">
+                    Watch #{index + 1} ({watch.date})
+                  </p>
                 </div>
               </li>
             ))}

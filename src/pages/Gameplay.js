@@ -15,7 +15,12 @@ const GamePlay = ({ watch, onGameEnd }) => {
   const [name, setName] = useState(''); // New state for the name field
   const [score, setScore] = useState(0);
   const [isCorrect, setIsCorrect] = useState(false);
+  const [isMagnified, setIsMagnified] = useState(false);
   const MAX_GUESSES = 5;
+
+  const magnify = () => {
+    setIsMagnified((prev) => !prev);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -48,7 +53,10 @@ const GamePlay = ({ watch, onGameEnd }) => {
     <div>
       <h1 className="title">Guess the watch</h1>
       <div className="image-wrapper">
-        <img className="zoom-image" src={'/images/' + watch.date + '/' + watch.imageSet[imageIndex]} alt={`Zoom level ${imageIndex}`} />
+        <img 
+          onClick={magnify}
+          className={`zoom-image ${isMagnified ? 'zoom-image--expanded' : ''}`}
+          src={'/images/' + watch.date + '/' + watch.imageSet[imageIndex]} alt={`Zoom level ${imageIndex}`} />
       </div>
       {!isCorrect && guesses.filter((g) => g !== '').length < MAX_GUESSES ? (
         <form onSubmit={handleSubmit} className="guess-form">

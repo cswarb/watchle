@@ -9,7 +9,7 @@
         "build": "npx react-scripts build",
         "backend:with-migrate": "npm run migrate && npm run backend",
         "migrate": "npx migrate-mongo up",
-        "seed": "node backend/scripts/seedDailyChallenges.js"
+        "seed": "node scripts/seedDailyChallenges.js"
     },
     "dependencies": {
         "concurrently": "^9.1.2",

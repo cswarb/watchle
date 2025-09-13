@@ -39,6 +39,10 @@ u {
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
+.zoom-image--expanded {
+  max-width: 500px;
+}
+
 .guess-form {
   margin-top: 1.5rem;
   display: flex;
@@ -196,12 +200,22 @@ u {
 }
 
 .watch-image {
-  width: 80px;
-  height: 80px;
+  width: 250px;
+  height: 250px;
   object-fit: cover;
   border-radius: 8px;
   margin-right: 15px;
   border: 1px solid #ddd;
+}
+
+.watch-image--thumbnail {
+  width: 100px;
+  height: 100px;
+}
+
+.watch-image--expanded {
+  width: 400px;
+  height: 400px;
 }
 
 .watch-details {
