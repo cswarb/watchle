@@ -20,11 +20,11 @@ const seedChallenges = async () => {
     {
       date: '2025-09-5',
       imageSet: [
-        '1b.jpg',
-        '2b.jpg',
-        '3b.jpg',
-        '4b.jpg',
-        '5b.jpg'
+        '1a.jpg',
+        '2a.jpg',
+        '3a.jpg',
+        '4a.jpg',
+        '5a.jpg'
       ],
       watchMake: 'Tudor',
       watchModel: 'Black Bay Chrono'
@@ -32,11 +32,11 @@ const seedChallenges = async () => {
     {
       date: '2025-09-6',
       imageSet: [
-        '1c.jpg',
-        '2c.jpg',
-        '3c.jpg',
-        '4c.jpg',
-        '5c.jpg'
+        '1a.jpg',
+        '2a.jpg',
+        '3a.jpg',
+        '4a.jpg',
+        '5a.jpg'
       ],
       watchMake: 'Christopher Ward',
       watchModel: 'Sealander GMT'
@@ -44,11 +44,11 @@ const seedChallenges = async () => {
     {
       date: '2025-09-7',
       imageSet: [
-        '1d.jpg',
-        '2d.jpg',
-        '3d.jpg',
-        '4d.jpg',
-        '5d.jpg'
+        '1a.jpg',
+        '2a.jpg',
+        '3a.jpg',
+        '4a.jpg',
+        '5a.jpg'
       ],
       watchMake: 'Tag Heuer',
       watchModel: 'Aquaracer'
@@ -56,11 +56,11 @@ const seedChallenges = async () => {
     {
       date: '2025-09-8',
       imageSet: [
-        '1e.jpg',
-        '2e.jpg',
-        '3e.jpg',
-        '4e.jpg',
-        '5e.jpg'
+        '1a.jpg',
+        '2a.jpg',
+        '3a.jpg',
+        '4a.jpg',
+        '5a.jpg'
       ],
       watchMake: 'Vacheron Constantin',
       watchModel: 'Perpetual Calendar'
@@ -68,14 +68,50 @@ const seedChallenges = async () => {
     {
       date: '2025-09-9',
       imageSet: [
-        '1f.jpg',
-        '2f.jpg',
-        '3f.jpg',
-        '4f.jpg',
-        '5f.jpg'
+        '1a.jpg',
+        '2a.jpg',
+        '3a.jpg',
+        '4a.jpg',
+        '5a.jpg'
       ],
       watchMake: 'Cartier',
       watchModel: 'Crash'
+    },
+    {
+      date: '2025-09-10',
+      imageSet: [
+        '1a.jpg',
+        '2a.jpg',
+        '3a.jpg',
+        '4a.jpg',
+        '5a.jpg'
+      ],
+      watchMake: 'MB&F',
+      watchModel: 'hm8'
+    },
+    {
+      date: '2025-09-11',
+      imageSet: [
+        '1a.jpg',
+        '2a.jpg',
+        '3a.jpg',
+        '4a.jpg',
+        '5a.jpg'
+      ],
+      watchMake: 'Tag Heuer',
+      watchModel: 'Chronograph'
+    },
+    {
+      date: '2025-09-12',
+      imageSet: [
+        '1a.jpg',
+        '2a.jpg',
+        '3a.jpg',
+        '4a.jpg',
+        '5a.jpg'
+      ],
+      watchMake: 'Omega',
+      watchModel: 'Speedmaster'
     }
   ];
 

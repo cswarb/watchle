@@ -8,7 +8,8 @@ const PlaySchema = new mongoose.Schema({
   model: String,
   guesses: Number,
   score: Number,
-  resultId: { type: String, unique: true }
+  resultId: { type: String, unique: true },
+  watchId: { type: String }
 });
 
 module.exports = mongoose.model('Play', PlaySchema);

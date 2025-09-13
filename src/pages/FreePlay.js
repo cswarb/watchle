@@ -51,6 +51,7 @@ const FreePlay = () => {
           model: watch.watchModel,
           guesses: index,
           score: score,
+          watchId: watch.date
         }),
       });
 

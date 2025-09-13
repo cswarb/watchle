@@ -14,10 +14,17 @@ const ResultPage = () => {
 
   if (!result) return <p>Loading result...</p>;
 
+  console.log(result)
+
   return (
     <div className="container">
       <h1><strong>In this round </strong> {result.username || 'Anonymous'} guessed:</h1>
       <p><strong>Watch:</strong> {result.make} {result.model}</p>
+      <img
+        className="watch-image"
+        src={'/images/' + result.watchId + '/' + result.imageSet[result.imageSet.length - 1]}
+        alt={`${result.make} ${result.model}`}
+      />
       <p><strong>Score:</strong> {result.score}</p>
       <p><strong>Guesses it took:</strong> {result.guesses}</p>
 

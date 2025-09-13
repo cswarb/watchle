@@ -28,7 +28,7 @@ router.get('/:userId', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const { userId, username, make, model, guesses, score } = req.body;
+  const { userId, username, make, model, guesses, score, watchId } = req.body;
   const today = new Date().toISOString().split('T')[0];
 
   const resultId = uuidv4();
@@ -41,7 +41,8 @@ router.post('/', async (req, res) => {
     model,
     guesses,
     score,
-    resultId
+    resultId,
+    watchId
   });
 
   await play.save();
@@ -54,7 +55,15 @@ router.get('/result/:resultId', async (req, res) => {
 
   if (!play) return res.status(404).json({ message: 'Not found' });
 
-  res.json(play);
+  console.log(play.watchId);
+
+  const dailyChallenge = await Daily.findOne({ date: play.watchId });
+  if (!dailyChallenge) return res.status(404).json({ message: 'Daily challenge not found' });
+
+  res.json({
+    ...play.toObject(),
+    imageSet: dailyChallenge.imageSet,
+  });
 });
 
 router.get('/stats/leaderboard', async (req, res) => {

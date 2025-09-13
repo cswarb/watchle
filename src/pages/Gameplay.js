@@ -93,7 +93,7 @@ const GamePlay = ({ watch, onGameEnd }) => {
 
   return (
     <div>
-      <h1 className="title">Guess the watch - {name}</h1>
+      <h1 className="title">Guess the watch</h1>
       <div className="image-wrapper">
         <img 
           onClick={magnify}

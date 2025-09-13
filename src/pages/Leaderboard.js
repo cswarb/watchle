@@ -13,11 +13,10 @@ const Leaderboard = () => {
       .then(res => res.json())
       .then(setEntries);
 
-    // Fetch current user data
-    fetch(`${API_BASE_URL}/api/user/${userId}`)
+    fetch(`${API_BASE_URL}/api/user/id/${userId}`)
       .then(res => res.json())
       .then(setCurrentUser);
-  }, []);
+  }, [userId]);
 
   return (
     <div className="container">
@@ -30,7 +29,7 @@ const Leaderboard = () => {
           {entries?.map((entry, index) => (
             <li
               key={index}
-              className={`leaderboard-item ${currentUser?.username === entry.username ? 'highlight' : ''}`}
+              className={`leaderboard-item ${currentUser?.user?.id === entry.username ? 'leaderboard-item--highlight' : ''}`}
             >
               <span className="leaderboard-rank">{index + 1}.</span>
               <span className="leaderboard-username">{entry.username || 'Anonymous'}</span>
