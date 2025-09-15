@@ -1,4 +1,4 @@
-const gameSchema = {
+export const gameSchema = {
     "@context": "https://schema.org",
     "@type": "Game",
     "name": "Guess the Watch - Daily Watch Identification Game",
@@ -34,7 +34,7 @@ const gameSchema = {
     "numberOfPlayers": "1"
 };
 
-const websiteSchema = {
+export const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "Guess the Watch",

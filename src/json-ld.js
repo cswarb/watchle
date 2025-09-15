@@ -7,4 +7,4 @@ const JsonLd = ({ schema }) => (
     </Helmet>
 );
 
-export default JsonLd;
+export default JsonLd;  
